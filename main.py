@@ -7,6 +7,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+from PyQt6.QtCore import Qt
 
 
 class MainWindow(QMainWindow):
@@ -20,6 +21,13 @@ class MainWindow(QMainWindow):
         self.map_l = 'map'
         self.map_key = ''
 
+        self.start()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_PageUp and self.map_zoom < 17:
+            self.map_zoom += 1
+        if event.key() == Qt.Key.Key_PageDown and self.map_zoom > 0:
+            self.map_zoom -= 1
         self.start()
 
     def start(self):
